@@ -29,46 +29,46 @@ Script Details
 --------------
 
 download.py
-  - downloads the original North Carolina traffic stop data as received from the state as a tar file
-  - input: NA
-  - output: saves orig_data folder in data
+  - Downloads the original North Carolina traffic stop data as received from the state as a tar file
+  - Input: NA
+  - Output: saves orig_data folder in data
 
 to_tsv.py
-	- converts the original txt files to tsv files
-	- input: .txt files (in orig_data folder)
-	- output: .tsv files (in orig_data folder)
+  - Converts the original txt files to tsv files
+  - Input: .txt files (in orig_data folder)
+  - Output: .tsv files (in orig_data folder)
 
 data_processing.R
-	- combines tsv files and saves two clean RData files in data/
-	- input: orig_data/*.tsv files
-	- output 
-		- "north_carolina_complete.RData" includes all stops in the original files 
-		- "north_carolina.RData" includes only stops from the top 100 local police departments used for the paper 
+  - Combines tsv files and saves two clean RData files in data/
+  - Input: orig_data/*.tsv files
+  - Output 
+    - "north_carolina_complete.RData" includes all stops in the original files 
+	- "north_carolina.RData" includes only stops from the top 100 local police departments used for the paper 
 
 fit_main_result.R
-	- runs the model in Stan and saves result (3 objects) in output/
-	- input: data/north_carolina.RData
-	- output
-		- obs: the data frame containing aggregate statistics for each police department and race
-		- fit: the fit object returned by Stan
-		- post: the posterior object returned by Stan
+  - Runs the model in Stan and saves result (3 objects) in output/
+  - Input: data/north_carolina.RData
+  - Output
+    - obs: the data frame containing aggregate statistics for each police department and race
+	- fit: the fit object returned by Stan
+	- post: the posterior object returned by Stan
 
 generate_plots_main_result.R
-	- generates Figures 3-7 and Tables 1-3 in the paper, and saves in output/
+  - generates Figures 3-7 and Tables 1-3 in the paper, and saves in output/
 
 generate_numbers_main_result.R
-	- prints out the statistics relating to the main result quoted in the paper
+  - prints out the statistics relating to the main result quoted in the paper
 
 robustness_tests.R
-	- implements the omitted variable bias tests (age, year, time, gender), and the placebo tests (season, weekday), and saves results in output/
+  - implements the omitted variable bias tests (age, year, time, gender), and the placebo tests (season, weekday), and saves results in output/
 
 threshold_noise.R
-	- implements the threshold heterogenity test for 0% - 5% noise
+  - implements the threshold heterogenity test for 0% - 5% noise
 
 generate_plots_model_checks.R
-	- generates Figures 1,2 8-10 in the paper, and saves in output/
+  - generates Figures 1,2 8-10 in the paper, and saves in output/
 
 generate_numbers_model_checks.R
-	- prints out all other statistics quoted in the paper
+  - prints out all other statistics quoted in the paper
 
 
