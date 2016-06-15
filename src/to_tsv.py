@@ -1,5 +1,4 @@
 #! /usr/bin/python
-from __future__ import print_function
 import sys, os, pandas, csv
 
 
@@ -29,8 +28,17 @@ if __name__ == '__main__':
 
   path = '../data/orig_data/'
   
+  print "processing CONTRABAND.txt..."
   convert_to_tsv(orig_fname='CONTRABAND.txt', output_fname='CONTRABAND.tsv', path=path)
+
+  print "processing SEARCH.txt..."
   convert_to_tsv(orig_fname='SEARCH.txt', output_fname='SEARCH.tsv', path=path)
-  convert_to_tsv(orig_fname='SEARCH_BASIS.txt', output_fname='SEARCH_BASIS.tsv', path=path)  
+
+  print "processing SEARCHBASIS.txt..."
+  convert_to_tsv(orig_fname='SEARCHBASIS.txt', output_fname='SEARCHBASIS.tsv', path=path) 
+
+  print "processing STOP.txt..."
   convert_to_tsv(orig_fname='STOP.txt', output_fname='STOP.tsv', path=path)
+
+  print "processing PERSON.txt..."
   convert_to_tsv(orig_fname='PERSON.txt', output_fname='PERSON.tsv', path=path)

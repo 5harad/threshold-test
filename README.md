@@ -2,14 +2,15 @@
 
 General Usage Notes
 -------------------
-The scripts included in this repo produce the threshold test results for the paper "Testing for Racial Discrimination in Police Searches of Motor Vehicles". 
+The scripts included in this repo produce the threshold test results for the paper "Testing for Racial Discrimination in Police Searches of Motor Vehicles".
+ 
 More details regarding methodology can be found in the paper: https://5harad.com/papers/threshold-test.pdf
 
-Scripts should be run as executables from `src/`.
+Scripts should be run as executables from `src/`.  
 Example usage: ./download.py
 
 
-Recommended order to produce main result:
+Recommended order to produce main result
 -----------------------------------------
 1. download.py
 2. to_tsv.py
@@ -19,7 +20,7 @@ Recommended order to produce main result:
 6. generate_numbers_main_result.R
 
 
-Recommended order to produce model check results:
+Recommended order to produce model check results
 -------------------------------------------------
 1. robustness_tests.R
 2. threshold_noise.R
