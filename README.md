@@ -28,10 +28,10 @@ Recommended order to produce model check results:
 Script Details
 --------------
 
-download.py
-	- downloads the original North Carolina traffic stop data as received from the state as a tar file
-	- input: NA
-	- output: saves orig_data folder in data/
+download.py <br />
+	- downloads the original North Carolina traffic stop data as received from the state as a tar file <br />
+	- input: NA <br />
+	- output: saves orig_data folder in data/ <br />
 
 to_tsv.py
 	- converts the original txt files to tsv files
