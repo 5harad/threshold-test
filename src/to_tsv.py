@@ -1,4 +1,4 @@
-#! /usr/bin/python2.7.10
+#! /usr/bin/python
 from __future__ import print_function
 import sys, os, pandas, csv
 

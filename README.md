@@ -24,7 +24,7 @@ Recommended order to produce model check results:
 1. robustness_tests.R
 2. threshold_noise.R
 3. generate_plots_model_checks.R
-4. generate_numbers_model_checks.R
+4. generate_numbers_data_subset_decisions.R
 
 
 
@@ -78,10 +78,10 @@ Script Details
 
 **generate_plots_model_checks.R**
   - Generates Figures 1,2 8-10 in the paper
-  - Requires: `output/main_result.RData`, threshold\_noise.R, robustness\_tests.R to be run
+  - Requires: `output/main_result.RData`, and results from `threshold_noise.R`, `robustness_tests.R`
   - Output: saves plots in `output/`
 
-**generate_numbers_data_subset_decisions.R**
+**generate_numbers_data_subset_decision.R**
   - Prints out all other statistics quoted in the paper
   - Requires: `output/north_carolina_complete.RData`
   - Output: prints to stdout
