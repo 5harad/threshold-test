@@ -1,6 +1,6 @@
 #! /usr/bin/python
 from __future__ import print_function
-import sys, argparse, os, pandas, csv
+import sys, os, pandas, csv
 
 
 def convert_to_tsv(orig_fname, output_fname, path=''):
