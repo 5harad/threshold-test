@@ -31,7 +31,7 @@ Script Details
 download.py
   - Downloads the original North Carolina traffic stop data as received from the state as a tar file
   - Input: NA
-  - Output: saves orig_data folder in data
+  - Output: saves `orig_data` folder in `data\`
 
 to_tsv.py
   - Converts the original txt files to tsv files
