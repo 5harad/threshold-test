@@ -1,7 +1,7 @@
 library(xtable)
 source('analysis.R')
 
-generate_plots = function(prefix = '../output/') {
+generate_plots = function(prefix = 'output/') {
   
   ggsave(paste0(prefix, 'example_red_discrimination.pdf'),
          plot_example(0.3, 0.352, 28.98, t2=0.351, p2=0.3878, l2=26.48, ylim = 5),
@@ -11,14 +11,14 @@ generate_plots = function(prefix = '../output/') {
          plot_example(0.304, 0.354, 30.59, t2=0.254, p2=0.3385, l2=6.19, ylim = 5),
          width =5, height =5)
   
-  load(paste0(prefix, 'season.RData'))
+  load('output/season.RData')
   df = data.frame(test = 'Season',
                   group = levels(obs$race), 
                   t = colMeans(post$thresholds),
                   tu = colQuantiles(post$thresholds, probs = c(0.975)),
                   tl = colQuantiles(post$thresholds, probs = c(0.025)))
   
-  load(paste0(prefix, 'weekday.RData'))
+  load('output/weekday.RData')
   df = rbind(df,
              data.frame(test = 'Weekday', group = levels(obs$race),
                         t = colMeans(post$thresholds),
@@ -42,14 +42,14 @@ generate_plots = function(prefix = '../output/') {
   
   races <- factor(c('White', 'Black', 'Hispanic', 'Asian'), levels =c('White', 'Black', 'Hispanic', 'Asian'))
   
-  load(paste0(prefix, 'gender_male.RData'))
+  load('output/gender_male.RData')
   df <- data.frame(test = 'Gender', group= rep('Male', 4), race = races, 
                    t_hat = colMeans(post$thresholds), se = apply(post$thresholds, 2, sd),
                    stop_count = (obs %>% group_by(race) %>% summarize(num_stops = sum(num_stops)))$num_stops,
                    t_upper = colQuantiles(post$thresholds, prob = 0.975),
                    t_lower = colQuantiles(post$thresholds, prob = 0.025))
   
-  load(paste0(prefix, 'gender_female.RData'))
+  load('../output/gender_female.RData')
   df_female <- data.frame(test = 'Gender' , group = rep('Female',4), race = races, 
                           t_hat = colMeans(post$thresholds), se = apply(post$thresholds, 2, sd),
                           stop_count = (obs %>% group_by(race) %>% summarize(num_stops = sum(num_stops)))$num_stops,
@@ -59,7 +59,7 @@ generate_plots = function(prefix = '../output/') {
   
   
   
-  load(paste0(prefix,'hour_8_12.RData'))
+  load('output/hour_8_12.RData')
   df_shift <- data.frame(test = 'Time', group= rep('8am - 12pm', 4), race = races, 
                           t_hat = colMeans(post$thresholds), se = apply(post$thresholds, 2, sd),
                           stop_count = (obs %>% group_by(race) %>% summarize(num_stops = sum(num_stops)))$num_stops,
@@ -67,7 +67,7 @@ generate_plots = function(prefix = '../output/') {
                           t_lower = colQuantiles(post$thresholds, prob = 0.025))
   df <- rbind(df, df_shift)
   
-  load(paste0(prefix,'hour_12_16.RData'))
+  load('output/hour_12_16.RData')
   df_shift <- data.frame(test = 'Time', group= rep('12pm - 4pm', 4), race = races, 
                           t_hat = colMeans(post$thresholds), se = apply(post$thresholds, 2, sd),
                           stop_count = (obs %>% group_by(race) %>% summarize(num_stops = sum(num_stops)))$num_stops,
@@ -75,7 +75,7 @@ generate_plots = function(prefix = '../output/') {
                           t_lower = colQuantiles(post$thresholds, prob = 0.025))
   df <- rbind(df, df_shift)
   
-  load(paste0(prefix, 'hour_16_20.RData'))
+  load('output/hour_16_20.RData')
   df_shift <- data.frame(test = 'Time', group= rep('4pm - 8pm', 4), race = races, 
                           t_hat = colMeans(post$thresholds), se = apply(post$thresholds, 2, sd),
                           stop_count = (obs %>% group_by(race) %>% summarize(num_stops = sum(num_stops)))$num_stops,
@@ -83,7 +83,7 @@ generate_plots = function(prefix = '../output/') {
                           t_lower = colQuantiles(post$thresholds, prob = 0.025))
   df <- rbind(df, df_shift)
   
-  load(paste0(prefix, 'hour_20_24.RData'))
+  load('output/hour_20_24.RData')
   df_shift <- data.frame(test = 'Time', group= rep('8pm - 12am', 4), race = races, 
                           t_hat = colMeans(post$thresholds), se = apply(post$thresholds, 2, sd),
                           stop_count = (obs %>% group_by(race) %>% summarize(num_stops = sum(num_stops)))$num_stops,
@@ -91,7 +91,7 @@ generate_plots = function(prefix = '../output/') {
                           t_lower = colQuantiles(post$thresholds, prob = 0.025))
   df <- rbind(df, df_shift)
   
-  load(paste0(prefix, 'hour_0_4.RData'))
+  load('output/hour_0_4.RData')
   df_shift <- data.frame(test = 'Time', group= rep('12am - 4am', 4), race = races, 
                           t_hat = colMeans(post$thresholds), se = apply(post$thresholds, 2, sd),
                           stop_count = (obs %>% group_by(race) %>% summarize(num_stops = sum(num_stops)))$num_stops,
@@ -99,7 +99,7 @@ generate_plots = function(prefix = '../output/') {
                           t_lower = colQuantiles(post$thresholds, prob = 0.025))
   df <- rbind(df, df_shift)
   
-  load(paste0(prefix,'hour_4_8.RData'))
+  load('output/hour_4_8.RData')
   df_shift <- data.frame(test = 'Time', group= rep('4am - 8am', 4), race = races, 
                           t_hat = colMeans(post$thresholds), se = apply(post$thresholds, 2, sd),
                           stop_count = (obs %>% group_by(race) %>% summarize(num_stops = sum(num_stops)))$num_stops,
@@ -108,7 +108,7 @@ generate_plots = function(prefix = '../output/') {
   df <- rbind(df, df_shift)
   
   
-  load(paste0(prefix,'year_2009.RData'))
+  load('output/year_2009.RData')
   df_yr <- data.frame(test = 'Year', group= rep('2009', 4), race = races, 
                       t_hat = colMeans(post$thresholds), se = apply(post$thresholds, 2, sd),
                       stop_count = (obs %>% group_by(race) %>% summarize(num_stops = sum(num_stops)))$num_stops,
@@ -116,7 +116,7 @@ generate_plots = function(prefix = '../output/') {
                       t_lower = colQuantiles(post$thresholds, prob = 0.025))
   df <- rbind(df, df_yr)
   
-  load(paste0(prefix,'year_2010.RData'))
+  load('output/year_2010.RData')
   df_yr <- data.frame(test = 'Year', group= rep('2010', 4), race = races, 
                       t_hat = colMeans(post$thresholds), se = apply(post$thresholds, 2, sd),
                       stop_count = (obs %>% group_by(race) %>% summarize(num_stops = sum(num_stops)))$num_stops,
@@ -124,7 +124,7 @@ generate_plots = function(prefix = '../output/') {
                       t_lower = colQuantiles(post$thresholds, prob = 0.025))
   df <- rbind(df, df_yr)
   
-  load(paste0(prefix, 'year_2011.RData'))
+  load('output/year_2011.RData')
   df_yr <- data.frame(test = 'Year', group= rep('2011', 4), race = races, 
                       t_hat = colMeans(post$thresholds), se = apply(post$thresholds, 2, sd),
                       stop_count = (obs %>% group_by(race) %>% summarize(num_stops = sum(num_stops)))$num_stops,
@@ -132,7 +132,7 @@ generate_plots = function(prefix = '../output/') {
                       t_lower = colQuantiles(post$thresholds, prob = 0.025))
   df <- rbind(df, df_yr)
   
-  load(paste0(prefix, 'year_2012.RData'))
+  load('output/year_2012.RData')
   df_yr <- data.frame(test = 'Year', group= rep('2012', 4), race = races, 
                       t_hat = colMeans(post$thresholds), se = apply(post$thresholds, 2, sd),
                       stop_count = (obs %>% group_by(race) %>% summarize(num_stops = sum(num_stops)))$num_stops,
@@ -140,7 +140,7 @@ generate_plots = function(prefix = '../output/') {
                       t_lower = colQuantiles(post$thresholds, prob = 0.025))
   df <- rbind(df, df_yr)
   
-  load(paste0(prefix, 'year_2013.RData'))
+  load('output/year_2013.RData')
   df_yr <- data.frame(test = 'Year', group= rep('2013', 4), race = races, 
                       t_hat = colMeans(post$thresholds), se = apply(post$thresholds, 2, sd),
                       stop_count = (obs %>% group_by(race) %>% summarize(num_stops = sum(num_stops)))$num_stops,
@@ -148,7 +148,7 @@ generate_plots = function(prefix = '../output/') {
                       t_lower = colQuantiles(post$thresholds, prob = 0.025))
   df <- rbind(df, df_yr)
   
-  load(paste0(prefix,'year_2014.RData'))
+  load('output/year_2014.RData')
   df_yr <- data.frame(test = 'Year', group= rep('2014', 4), race = races, 
                       t_hat = colMeans(post$thresholds), se = apply(post$thresholds, 2, sd),
                       stop_count = (obs %>% group_by(race) %>% summarize(num_stops = sum(num_stops)))$num_stops,
@@ -157,7 +157,7 @@ generate_plots = function(prefix = '../output/') {
   df <- rbind(df, df_yr)
   
   
-  load(paste0(prefix,'age_16_20.RData'))
+  load('output/age_16_20.RData')
   df_age <- data.frame(test = 'Age', group= rep('16-20', 4), race = races, 
                       t_hat = colMeans(post$thresholds), se = apply(post$thresholds, 2, sd),
                       stop_count = (obs %>% group_by(race) %>% summarize(num_stops = sum(num_stops)))$num_stops,
@@ -165,7 +165,7 @@ generate_plots = function(prefix = '../output/') {
                       t_lower = colQuantiles(post$thresholds, prob = 0.025))
   df <- rbind(df, df_age)
   
-  load(paste0(prefix,'age_21_30.RData'))
+  load('output/age_21_30.RData')
   df_age <- data.frame(test = 'Age', group= rep('21-30', 4), race = races, 
                        t_hat = colMeans(post$thresholds), se = apply(post$thresholds, 2, sd),
                        stop_count = (obs %>% group_by(race) %>% summarize(num_stops = sum(num_stops)))$num_stops,
@@ -173,7 +173,7 @@ generate_plots = function(prefix = '../output/') {
                        t_lower = colQuantiles(post$thresholds, prob = 0.025))
   df <- rbind(df, df_age)
   
-  load(paste0(prefix,'age_31_40.RData'))
+  load('output/age_31_40.RData')
   df_age <- data.frame(test = 'Age', group= rep('31-40', 4), race = races, 
                        t_hat = colMeans(post$thresholds), se = apply(post$thresholds, 2, sd),
                        stop_count = (obs %>% group_by(race) %>% summarize(num_stops = sum(num_stops)))$num_stops,
@@ -181,7 +181,7 @@ generate_plots = function(prefix = '../output/') {
                        t_lower = colQuantiles(post$thresholds, prob = 0.025))
   df <- rbind(df, df_age)
   
-  load(paste0(prefix,'age_41_50.RData'))
+  load('output/age_41_50.RData')
   df_age <- data.frame(test = 'Age', group= rep('41-50', 4), race = races, 
                        t_hat = colMeans(post$thresholds), se = apply(post$thresholds, 2, sd),
                        stop_count = (obs %>% group_by(race) %>% summarize(num_stops = sum(num_stops)))$num_stops,
@@ -189,7 +189,7 @@ generate_plots = function(prefix = '../output/') {
                        t_lower = colQuantiles(post$thresholds, prob = 0.025))
   df <- rbind(df, df_age)
   
-  load(paste0(prefix, 'age_51_105.RData'))
+  load('output/age_51_105.RData')
   df_age <- data.frame(test = 'Age', group= rep('51+', 4), race = races, 
                        t_hat = colMeans(post$thresholds), se = apply(post$thresholds, 2, sd),
                        stop_count = (obs %>% group_by(race) %>% summarize(num_stops = sum(num_stops)))$num_stops,
@@ -217,41 +217,41 @@ generate_plots = function(prefix = '../output/') {
          width=10, height=5)
   
   
-  load(paste0(prefix,'main_result.RData'))
+  load('output/main_result.RData')
   post0 = post
   obs0 = obs
   t_hat0 = colMeans(post0$thresholds)
   
-  load(paste0(prefix,'noise_00.RData'))
+  load('output/noise_00.RData')
   df <- data.frame(noise = rep(0.00, 4) , race = races, t_hat = colMeans(post$thresholds),
                    t_upper = colQuantiles(post$thresholds, prob = 0.975),
                    t_lower = colQuantiles(post$thresholds, prob = 0.025))
   
-  load(paste0(prefix,'noise_01.RData'))
+  load('output/noise_01.RData')
   n1 <- data.frame(noise = rep(0.01, 4) , race = races, t_hat = colMeans(post$thresholds),
                    t_upper = colQuantiles(post$thresholds, prob = 0.975),
                    t_lower = colQuantiles(post$thresholds, prob = 0.025))
   df <- rbind(df, n1)
   
-  load(paste0(prefix,'noise_02.RData'))
+  load('output/noise_02.RData')
   n2 <- data.frame(noise =  rep(0.02, 4) , race = races, t_hat = colMeans(post$thresholds),
                    t_upper = colQuantiles(post$thresholds, prob = 0.975),
                    t_lower = colQuantiles(post$thresholds, prob = 0.025))
   df <- rbind(df, n2)
   
-  load(paste0(prefix,'noise_03.RData'))
+  load('output/noise_03.RData')
   n3 <- data.frame(noise = rep(0.03, 4), race = races, t_hat = colMeans(post$thresholds),
                    t_upper = colQuantiles(post$thresholds, prob = 0.975),
                    t_lower = colQuantiles(post$thresholds, prob = 0.025))
   df <- rbind(df, n3)
   
-  load(paste0(prefix,'noise_04.RData'))
+  load('output/noise_04.RData')
   n4 <- data.frame(noise = rep(0.04, 4), race = races, t_hat = colMeans(post$thresholds), 
                    t_upper = colQuantiles(post$thresholds, prob = 0.975),
                    t_lower = colQuantiles(post$thresholds, prob = 0.025))
   df <- rbind(df, n4)
   
-  load(paste0(prefix,'noise_05.RData'))
+  load('output/noise_05.RData')
   n5 <- data.frame(noise = rep(0.05, 4), race = races, t_hat = colMeans(post$thresholds),
                    t_upper = colQuantiles(post$thresholds, prob = 0.975),
                    t_lower = colQuantiles(post$thresholds, prob = 0.025))

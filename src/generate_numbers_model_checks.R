@@ -1,6 +1,6 @@
 library(dplyr)
 
-load('../data/north_carolina_complete.RData')
+load('data/north_carolina_complete.RData')
 nc = north_carolina
 
 print(sprintf('Number of stops in raw dataset: %s',
@@ -44,3 +44,13 @@ print(sprintf('%% of non-state patrol stops in largest 100 depts: %s%%',
                      sum(nc$police_department != 'NC State Highway Patrol')*100
                    , digits=4)))
 
+
+print(sprintf('%.2f%% of stops coded at 11pm', 100*mean(nc$stop_time == "23:00:00")))
+print(sprintf('%.2f%% of stops coded at midnight', 100*mean(nc$stop_time == "00:00:00")))
+print(sprintf('%.2f%% of stops coded at 1am', 100*mean(nc$stop_time == "01:00:00")))
+
+print(sprintf('%.2f%% of drivers with age < 16 or > 105', 100*mean(nc$age < 16 | nc$age > 105)))
+
+
+print('Racial breakdown of contraband found')
+print(nc %>% filter(contraband_found) %>% group_by(race) %>% summarise_each(funs(mean), c(money, weapon, alcohol,drugs)))
