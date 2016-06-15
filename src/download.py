@@ -1,9 +1,6 @@
 #! /usr/bin/python 
 from __future__ import print_function
-import sys, argparse, os, pandas, csv
-import urllib
-import tarfile
-
+import sys, os, urllib, tarfile, pandas, csv
 
   
 def download(url, path):
@@ -15,13 +12,17 @@ def download(url, path):
 	webFile.close()
 	localFile.close()
 
-
 def untar(fname, path=''):
+  """ Extract files from tar file into directory specified by path.
+  """
   if (fname.endswith("tar.gz")):
     tar = tarfile.open(fname)
     tar.extractall(path)
     tar.close()
-   
+  # else:
+  #   print 'Error Not a tar file.'
+
+
 
 
 if __name__ == '__main__':

@@ -35,7 +35,7 @@ Script Details
 
 **to_tsv.py**
   - Converts the original txt files to tsv files
-  - Input: .txt files (in `orig_data/)
+  - Input: .txt files (in `orig_data/`)
   - Output: .tsv files (in `orig_data`)
 
 **data_processing.R**
