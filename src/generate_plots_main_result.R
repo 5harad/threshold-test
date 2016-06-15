@@ -3,7 +3,7 @@ source('analysis.R')
 
 generate_plots = function(prefix = 'output/') {
   
-  load('output/main_result.RData')
+  load('../output/main_result.RData')
   
   ggsave(paste0(prefix, 'benchmark_test.pdf'),
          plot_benchmark_test(obs, mx = 0.201),

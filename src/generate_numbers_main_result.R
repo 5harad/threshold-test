@@ -1,6 +1,6 @@
 library(dplyr)
 
-load('output/main_result.RData')
+load('../output/main_result.RData')
 
 print('Weighted thresholds')
 print(format(data.frame(race = levels(obs$race), threshold = 100*colMeans(post$thresholds)), digits=4))
