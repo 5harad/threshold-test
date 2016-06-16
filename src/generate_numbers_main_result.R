@@ -1,3 +1,4 @@
+#!/usr/bin/env Rscript
 library(dplyr)
 
 load('../output/main_result.RData')

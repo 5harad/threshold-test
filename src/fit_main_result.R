@@ -1,3 +1,4 @@
+#!/usr/bin/env Rscript
 source('run_mcmc.R')
 
 load('../data/north_carolina.RData')

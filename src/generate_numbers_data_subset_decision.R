@@ -1,3 +1,4 @@
+#!/usr/bin/env Rscript
 library(dplyr)
 
 load('../data/north_carolina_complete.RData')

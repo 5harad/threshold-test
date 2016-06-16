@@ -1,3 +1,4 @@
+#!/usr/bin/env Rscript
 library(boot)
 source('run_mcmc.R')
 
