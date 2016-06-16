@@ -1,6 +1,7 @@
 #!/usr/bin/env Rscript
 library(dplyr)
 library(pracma)
+library(matrixStats)
 
 load('../output/main_result.RData')
 
