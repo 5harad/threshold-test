@@ -60,6 +60,7 @@ Script Details
     - obs: the data frame containing aggregate statistics for each police department and race
 	- fit: the fit object returned by Stan
 	- post: the posterior object returned by Stan
+  - Run time: ~ 8-10 hours, chains are being sampled in parallel on 5 cores
 
 **generate_plots_main_result.R**
   - Generates Figures 3-7 and Tables 1-3 in the paper
@@ -78,12 +79,14 @@ Script Details
   - Libraries: dplyr, rstan
   - Requires: `data/north_carolina.RData`
   - Output: saves results in `output/`
+  - Run time: ~ 4-8 hours / test x 21 tests, chains are being sampled in parallel on 5 cores
 
 **threshold_noise.R**
   - Implements the threshold heterogenity test for 0% - 5% noise
   - Libraries: dplyr, rstan, boot
   - Requires: `data/north_carolina.RData`
   - Output: saves results in `output/`
+  - Run time: ~ 8-20 hours / test x 5 tests, chains are being sampled in parallel on 5 cores
 
 **generate_plots_model_checks.R**
   - Generates Figures 1,2 8-10 in the paper
