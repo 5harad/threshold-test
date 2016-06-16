@@ -61,7 +61,7 @@ asian_tab = with(obs %>% filter(race == 'White') %>% left_join(obs %>% filter(ra
 # tab = paste(readLines(f), collapse = '\n')
 # close(f)
 f = file(paste0(prefix,'tab3.tex'), 'w')
-writeChar(sprintf(tab,
+writeChar(sprintf(#tab,
                   black_tab[1], black_tab[3], black_tab[2], black_tab[4],
                   hispanic_tab[1], hispanic_tab[3], hispanic_tab[2], hispanic_tab[4],
                   asian_tab[1], asian_tab[3], asian_tab[2], asian_tab[4]), f)
