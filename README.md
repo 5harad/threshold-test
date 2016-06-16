@@ -79,14 +79,14 @@ Script Details
   - Libraries: dplyr, rstan
   - Requires: `data/north_carolina.RData`
   - Output: saves results in `output/`
-  - Run time: ~ 4-8 hours / test x 21 tests, chains are being sampled in parallel on 5 cores
+  - Run time: ~ 4-8 hours per test x 21 tests, chains are being sampled in parallel on 5 cores
 
 **threshold_noise.R**
   - Implements the threshold heterogenity test for 0% - 5% noise
   - Libraries: dplyr, rstan, boot
   - Requires: `data/north_carolina.RData`
   - Output: saves results in `output/`
-  - Run time: ~ 8-20 hours / test x 5 tests, chains are being sampled in parallel on 5 cores
+  - Run time: ~ 8-20 hours per test x 5 tests, chains are being sampled in parallel on 5 cores
 
 **generate_plots_model_checks.R**
   - Generates Figures 1,2 8-10 in the paper
