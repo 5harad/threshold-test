@@ -41,7 +41,7 @@ Script Details
 **to_tsv.py**
   - Converts the original txt files to tsv files
   - Libraries: sys, os, pandas, csv
-  - Requires: .txt files (in `orig_data/`)
+  - Requires: `orig_data/*.txt` files
   - Output: .tsv files (in `orig_data/`)
 
 **data_processing.R**
