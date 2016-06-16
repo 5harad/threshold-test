@@ -1,7 +1,7 @@
 #!/usr/bin/env Rscript
 library(dplyr)
 
-load('../data/north_carolina_complete.RData')
+load('../data/north_carolina_clean.RData')
 nc = north_carolina
 
 print(sprintf('Number of stops in raw dataset: %s',
