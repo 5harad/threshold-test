@@ -2,7 +2,7 @@
 library(xtable)
 source('analysis.R')
 
-prefix='output/'
+prefix='../output/'
   
 ggsave(paste0(prefix, 'example_red_discrimination.pdf'),
        plot_example(0.3, 0.352, 28.98, t2=0.351, p2=0.3878, l2=26.48, ylim = 5),

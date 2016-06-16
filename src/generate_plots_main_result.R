@@ -2,7 +2,7 @@
 library(xtable)
 source('analysis.R')
 
-prefix='output/'
+prefix='../output/'
   
 load('../output/main_result.RData')
 
