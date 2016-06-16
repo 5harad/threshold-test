@@ -57,9 +57,10 @@ hispanic_tab = with(obs %>% filter(race == 'White') %>% left_join(obs %>% filter
                  table(search_rate.y>search_rate.x, hit_rate.x>hit_rate.y))
 asian_tab = with(obs %>% filter(race == 'White') %>% left_join(obs %>% filter(race == 'Asian'), by = c('police_department')),
                  table(search_rate.y>search_rate.x, hit_rate.x>hit_rate.y))
-# f = file(paste0(prefix,'tab3_raw.tex'), 'r')
-# tab = paste(readLines(f), collapse = '\n')
-# close(f)
+
+f = file(paste0(prefix,'tab3_raw.tex'), 'r')
+tab = paste(readLines(f), collapse = '\n')
+close(f)
 f = file(paste0(prefix,'tab3.tex'), 'w')
 writeChar(sprintf(#tab,
                   black_tab[1], black_tab[3], black_tab[2], black_tab[4],
