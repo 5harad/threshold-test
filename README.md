@@ -70,7 +70,7 @@ Script Details
 
 **generate_numbers_main_result.R**
   - Prints out the statistics relating to the main result quoted in the paper
-  - Libraries: dplyr
+  - Libraries: dplyr, pracma, matrixStats
   - Requires: `output/main_result.RData`
   - Output: prints to stdout
 

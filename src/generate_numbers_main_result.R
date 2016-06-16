@@ -50,13 +50,3 @@ df = obs %>% filter(police_department == pd) %>%
 print(sprintf('%.2f times more mass above 20%% for blacks than whites in %s',
         (df$mass_above_20_pct[df$race=='Black'])/(df$mass_above_20_pct[df$race=='White']), pd))
 
-
-print(sprintf('%.2f%% of stops coded at 11pm', 100*mean(nc$stop_time == "23:00:00")))
-print(sprintf('%.2f%% of stops coded at midnight', 100*mean(nc$stop_time == "00:00:00")))
-print(sprintf('%.2f%% of stops coded at 1am', 100*mean(nc$stop_time == "01:00:00")))
-
-print(sprintf('%.2f%% of drivers with age < 16 or > 105', 100*mean(nc$age < 16 | nc$age > 105)))
-
-
-print('Racial breakdown of contraband found')
-print(nc %>% filter(contraband_found) %>% group_by(race) %>% summarise_each(funs(mean), c(money, weapon, alcohol,drugs)))
