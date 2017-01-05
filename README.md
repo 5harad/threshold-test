@@ -2,7 +2,8 @@
 
 General Usage Notes
 -------------------
-The scripts included in this repo produce the threshold test results for the paper "Testing for Racial Discrimination in Police Searches of Motor Vehicles".
+The scripts included in this repo reproduce the results for the paper "The Problem of Infra-marginality
+in Outcome Tests for Discrimination", by Camelia Simoiu, Sam Corbett-Davies, and Sharad Goel.
  
 More details regarding methodology can be found in the paper: https://5harad.com/papers/threshold-test.pdf
 
