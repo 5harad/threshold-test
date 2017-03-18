@@ -79,5 +79,5 @@ ggsave(paste0(prefix, 'hit_rate_ppc.pdf'),
 ggsave(paste0(prefix, 'signal_raleigh.pdf'),
        plot_signal(obs, post,
                    obs$race %in% c('Black', 'White') & obs$police_department == 'Raleigh Police Department',
-                   ymax = 3),
+                   ymax = 1),
        width =5, height =5)
