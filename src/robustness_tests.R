@@ -132,7 +132,7 @@ fit_search_basis <- function(df, basis, fname){
   # output
   #   saves fit, posterior and observation dataframe to given directory
   
-  stops <- df %>% filter(grepl(basis, search_basis) | search_basis==FALSE)
+  stops <- df %>% filter(! grepl(basis, search_basis) | search_basis==FALSE)
   print(paste('Running model excluding', basis))
   
   output = run_mcmc(stops, paste0(path, 'search_basis_', fname), iter = 2000, chains = 5, model='model.stan')
