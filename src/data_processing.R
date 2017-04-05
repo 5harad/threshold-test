@@ -133,7 +133,7 @@ stops <- stops %>%
          officer_injury   = ifelse(officer_injury ==1,TRUE,FALSE),
          driver_injury    = ifelse(driver_injury ==1,TRUE,FALSE),
          passenger_injury = ifelse(passenger_injury ==1,TRUE,FALSE))
-  
+
 
 
 # ----------------------------------------------------
@@ -185,11 +185,11 @@ north_carolina <- north_carolina %>%
   filter(race %in% c('White', 'Black', 'Hispanic', 'Asian')) %>%
   filter(gender %in% c('Female', 'Male')) %>%
   filter(police_department %in% top_100_depts$police_department) %>%
-  mutate(race   = factor(as.character(race), levels = c('White', 'Black', 'Hispanic', 'Asian')),
-         gender = factor(as.character(gender), levels = c('Female', 'Male'))) %>%
-  dplyr::select(c(police_department, gender, age, race, stop_date, stop_time, search_conducted, contraband_found, money, weapon, alcohol, drugs))
+  mutate(race         = factor(as.character(race), levels = c('White', 'Black', 'Hispanic', 'Asian')),
+         gender       = factor(as.character(gender), levels = c('Female', 'Male')),
+         search_basis = all_basis) %>%
+  dplyr::select(c(police_department, gender, age, race, stop_date, stop_time, search_conducted, search_basis, contraband_found, money, weapon, alcohol, drugs))
 
 
 save(north_carolina, file = "../data/north_carolina.RData")
-print('saved north_carolina.RData')
 
