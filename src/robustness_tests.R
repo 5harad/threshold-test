@@ -131,8 +131,11 @@ fit_search_basis <- function(df, fname){
   # output
   #   saves fit, posterior and observation dataframe to given directory
   
-  stops <- df %>% filter(!grepl('Other Official Info', search_basis))
-  print('Running model excluding search basis: Other Official Info')
+  stops <- df %>% 
+    mutate(search_conducted = ifelse(search_type == 'Probable Cause' & (! grepl('Other Official Info', search_basis)), TRUE, FALSE),
+           contraband_found = ifelse(search_conducted==TRUE, contraband_found, FALSE))
+  
+  print('Running model for probable cause, no official info')
   
   output = run_mcmc(stops, paste0(path, fname), iter = 2000, chains = 5, model='model.stan')
 }
@@ -171,6 +174,6 @@ fit_age(df=north_carolina, start_age=31, stop_age=40, fname='31-40')
 fit_age(df=north_carolina, start_age=41, stop_age=50, fname='41-50')
 fit_age(df=north_carolina, start_age=51, stop_age=105, fname='51-105')
 
-fit_search_basis(df=north_carolina, fname='excl_search_basis_official_info')
+fit_search_basis(df=north_carolina, fname='search_basis_pc_excl_official_info')
 
 
