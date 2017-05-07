@@ -158,8 +158,8 @@ north_carolina <- north_carolina %>%
 # convert NA to FALSE
 north_carolina[is.na(north_carolina)] <- FALSE
 
-save(north_carolina, file = "../data/north_carolina_complete.RData")
-print('saved north_carolina_complete.RData')
+# save NC dataset with all fields
+# save(north_carolina, file = "../data/north_carolina_complete.RData")
 
 
 # ------------------------------------------------------------------------------------------------
