@@ -3,6 +3,7 @@ library(dplyr)
 library(pracma)
 library(matrixStats)
 
+# load threshold results
 load('../output/main_result.RData')
 
 print('Weighted thresholds')

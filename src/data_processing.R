@@ -158,9 +158,6 @@ north_carolina <- north_carolina %>%
 # convert NA to FALSE
 north_carolina[is.na(north_carolina)] <- FALSE
 
-# save NC dataset with all fields
-# save(north_carolina, file = "../data/north_carolina_complete.RData")
-
 
 # ------------------------------------------------------------------------------------------------
 # subset data for analysis
@@ -191,5 +188,7 @@ north_carolina <- north_carolina %>%
   dplyr::select(c(police_department, gender, age, race, stop_date, stop_time, search_conducted, search_basis, contraband_found, money, weapon, alcohol, drugs))
 
 
-save(north_carolina, file = "../data/north_carolina.RData")
+# save clean data as tsv file
+write.table(north_carolina, file='../data/north_carolina.tsv', quote=FALSE, sep='\t', row.names = FALSE)
+
 
