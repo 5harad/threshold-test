@@ -158,6 +158,9 @@ north_carolina <- north_carolina %>%
 # convert NA to FALSE
 north_carolina[is.na(north_carolina)] <- FALSE
 
+# save clean data frame 
+save(north_carolina, file='../data/north_carolina_clean.RData')
+
 
 # ------------------------------------------------------------------------------------------------
 # subset data for analysis
