@@ -1,7 +1,7 @@
 #!/usr/bin/env Rscript
 library(dplyr)
 
-north_carolina <- read.table(file = '../data/north_carolina.tsv', sep = '\t', header = TRUE)
+load('../data/north_carolina_clean.RData')
 nc = north_carolina
 
 print(sprintf('Number of stops in raw dataset: %s',

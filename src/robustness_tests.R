@@ -145,7 +145,7 @@ fit_search_basis <- function(df, fname){
 # run tests
 #---------------------------------------------------------------------------------------
 
-north_carolina <- read.table(file = '../data/north_carolina.tsv', sep = '\t', header = TRUE)
+north_carolina <- read_tsv(file = '../data/north_carolina.tsv.gz', sep = '\t', header = TRUE)
 
 placebo_season(df=north_carolina)
 placebo_weekday(df=north_carolina)
