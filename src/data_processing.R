@@ -6,7 +6,7 @@ library(dplyr)
 # ----------------------------------------------------
 # person
 # ----------------------------------------------------
-person <- read.table('../data/orig_data/PERSON.tsv', sep='\t', header=TRUE, stringsAsFactors=FALSE)
+person <- read.table('../data/orig-data/PERSON.tsv', sep='\t', header=TRUE, stringsAsFactors=FALSE)
 names(person) <- c('person_id', 'stop_id', 'person_type', 'age', 'gender', 'ethnicity', 'race')
 
 # remove last row (incomplete)
@@ -34,7 +34,7 @@ person <- person %>%
 # ----------------------------------------------------
 # search
 # ----------------------------------------------------
-search <- read.table('../data/orig_data/SEARCH.tsv', sep='\t', header=TRUE, stringsAsFactors=FALSE)
+search <- read.table('../data/orig-data/SEARCH.tsv', sep='\t', header=TRUE, stringsAsFactors=FALSE)
 names(search) <- c('search_id','stop_id','person_id','search_type','vehicle_search','driver_search','passenger_search','property_search','vehicle_seized','personal_property_seized','other_property_seized')
 
 search <- search %>%
@@ -59,7 +59,7 @@ search <- search %>%
 # one row per stop if a search was conducted
 # one search_type per search
 # ----------------------------------------------------
-search_basis <- read.table('../data/orig_data/SEARCHBASIS.tsv', sep='\t', header=TRUE, stringsAsFactors=FALSE)
+search_basis <- read.table('../data/orig-data/SEARCHBASIS.tsv', sep='\t', header=TRUE, stringsAsFactors=FALSE)
 names(search_basis) <- c('search_basis_id','search_id','person_id','stop_id','search_basis')
 
 search_basis <- search_basis %>%
@@ -80,14 +80,14 @@ search_basis <- search_basis %>%
 # ----------------------------------------------------
 # contraband
 # ----------------------------------------------------
-contraband <- read.table('../data/orig_data/CONTRABAND.tsv', sep='\t', header=TRUE, stringsAsFactors=FALSE)
+contraband <- read.table('../data/orig-data/CONTRABAND.tsv', sep='\t', header=TRUE, stringsAsFactors=FALSE)
 names(contraband) <- c('contraband_id','search_id','person_id','stop_id',
                        'ounces_drugs','pounds_drugs','pints_alcohol','gallons_alcohol','dosages_drugs','grams_drugs',
                        'kilos_drugs', 'amount_money','number_weapons','other_contraband_dollar_amount')
 
 contraband <- contraband %>%
   mutate(contraband_found = TRUE,
-         money = ifelse(amount_money>0 | other_contraband_dollar_amount>0, TRUE, FALSE),
+         money   = ifelse(amount_money>0 | other_contraband_dollar_amount>0, TRUE, FALSE),
          weapon  = ifelse(number_weapons>0, TRUE, FALSE),
          alcohol = ifelse(pints_alcohol>0 | gallons_alcohol>0, TRUE, FALSE),
          drugs   = ifelse(ounces_drugs>0 | pounds_drugs>0 | grams_drugs>0 | kilos_drugs>0 | dosages_drugs>0, TRUE, FALSE)) %>%
@@ -97,7 +97,7 @@ contraband <- contraband %>%
 # ----------------------------------------------------
 # stops
 # ----------------------------------------------------
-stops <- read.table('../data/orig_data/STOP.tsv', sep='\t', header=TRUE, stringsAsFactors=FALSE, quote = "", fill=TRUE)
+stops <- read.table('../data/orig-data/STOP.tsv', sep='\t', header=TRUE, stringsAsFactors=FALSE, quote = "", fill=TRUE)
 names(stops) <- c('stop_id', 'police_department', 'stop_date', 'stop_purpose', 'action', 'driver_arrest', 'passenger_arrest', 
                   'encounter_force','engage_force', 'officer_injury', 'driver_injury', 'passenger_injury', 'officer_id',
                   'county_id', 'stop_city')
@@ -139,7 +139,7 @@ stops <- stops %>%
 # ----------------------------------------------------
 # add county name
 # ----------------------------------------------------
-county_codes <- read.csv('../data/orig_data/county_codes.csv', sep=',', header=TRUE, stringsAsFactors=FALSE)
+county_codes <- read.csv('../data/orig-data/county-codes.csv', sep=',', header=TRUE, stringsAsFactors=FALSE)
 county_codes <- county_codes[,1:2]
 stops$county_name <- county_codes$county_name[match(stops$county_id, county_codes$county_id)]
 
@@ -148,15 +148,22 @@ stops$county_name <- county_codes$county_name[match(stops$county_id, county_code
 # merge data frames and save cleaned data
 # ----------------------------------------------------
 north_carolina <- left_join(search, search_basis, by=c('stop_id', 'search_id'))
-north_carolina <- left_join(north_carolina, contraband, by=c('search_id')) %>% rename(stop_id = stop_id.x)
+north_carolina <- left_join(north_carolina, contraband, by=c('search_id')) %>% mutate(stop_id = stop_id.x)
 north_carolina <- left_join(stops, north_carolina, by='stop_id')
 north_carolina <- left_join(north_carolina, person, by='stop_id')
 
 north_carolina <- north_carolina %>%
-  select(-c(person_id,person_id.x, person_id.y, stop_id, stop_id.y, id ))
+  select(-c(person_id, person_id.x, person_id.y, stop_id, stop_id.x, stop_id.y, id))
 
 # convert NA to FALSE
-north_carolina[is.na(north_carolina)] <- FALSE
+north_carolina$search_conducted[is.na(north_carolina$search_conducted)] <- FALSE
+
+north_carolina <- north_carolina %>%
+  mutate(contraband_found = ifelse(search_conducted==TRUE & is.na(contraband_found), FALSE, contraband_found),
+         money   = ifelse(search_conducted==TRUE & is.na(money), FALSE, money),
+         weapon  = ifelse(search_conducted==TRUE & is.na(weapon), FALSE, weapon),
+         alcohol = ifelse(search_conducted==TRUE & is.na(alcohol), FALSE, alcohol),
+         drugs   = ifelse(search_conducted==TRUE & is.na(drugs), FALSE, drugs))
 
 # save clean data frame 
 save(north_carolina, file='../data/north_carolina_clean.RData')
@@ -180,6 +187,7 @@ top_100_depts <- north_carolina %>%
   as.data.frame()
 
 
+# north_carolina <- north_carolina %>%
 north_carolina <- north_carolina %>%
   filter(police_department != 'NC State Highway Patrol') %>%
   filter(race %in% c('White', 'Black', 'Hispanic', 'Asian')) %>%
@@ -188,7 +196,8 @@ north_carolina <- north_carolina %>%
   mutate(race         = factor(as.character(race), levels = c('White', 'Black', 'Hispanic', 'Asian')),
          gender       = factor(as.character(gender), levels = c('Female', 'Male')),
          search_basis = all_basis) %>%
-  dplyr::select(c(police_department, gender, age, race, stop_date, stop_time, search_conducted, search_basis, contraband_found, money, weapon, alcohol, drugs))
+  dplyr::select(c(police_department, gender, age, race, stop_date, stop_time, search_conducted, search_type, search_basis, contraband_found, money, weapon, alcohol, drugs))
+
 
 
 # save clean data as tsv file
