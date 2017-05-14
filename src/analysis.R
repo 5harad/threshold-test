@@ -512,26 +512,3 @@ noisy_thresholds = function(obs, post, noise, samples = 100, samples_per_obs = 2
   obs
 }
 
-plot_bootstrap = function(file_prefix = 'bootstrap', suffixes = 1:4) {
-  
-  load('../../../../data/north_carolina/jasa/main_result.RData')
-  df = data.frame(race = factor(levels(obs$race), levels=levels(obs$race)), t = colMeans(post$thresholds), group = 0)
-  
-  for (s in suffixes) {
-    load(paste0(file_prefix, s, '.RData'))
-    df = rbind(df,
-               data.frame(race = levels(obs$race),
-                          t = colMeans(post$thresholds),
-                          group = s))
-  }
-  
-  print(
-    ggplot(df) + geom_line(data=df[df$group!=0,],aes(x=group, y=t, color=race)) + 
-      geom_hline(data=df[df$group==0,], aes(yintercept=t, color=race), linetype='dashed') +
-      scale_color_manual(values=c('blue','black','red', 'green4')) +
-      theme(legend.title = element_blank()) +
-      xlab('\nBootstrap iteration') + ylab('Threshold\n')
-  )
-  
-  df
-}
