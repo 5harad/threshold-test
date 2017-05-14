@@ -122,14 +122,30 @@ fit_age <- function(df, start_age, stop_age, fname){
 
 
 
+fit_search_basis <- function(df, fname){
+  # NC allows for multiple search basis for each stop. 
+  # This function excludes stops that include 'Other Official Info' as a search basis, and outputs threshold test results.
+  # inputs
+  #    df: [data frame]  stop information
+  #    fname: [str] file name
+  # output
+  #   saves fit, posterior and observation dataframe to given directory
+  
+  stops <- df %>% 
+    mutate(search_conducted = ifelse(search_type == 'Probable Cause' & (! grepl('Other Official Info', search_basis)), TRUE, FALSE),
+           contraband_found = ifelse(search_conducted==TRUE, contraband_found, FALSE))
+  
+  print('Running model for probable cause, no official info')
+  
+  output = run_mcmc(stops, paste0(path, fname), iter = 2000, chains = 5, model='model.stan')
+}
 
 
 #---------------------------------------------------------------------------------------
 # run tests
 #---------------------------------------------------------------------------------------
 
-load('../data/north_carolina.RData')
-
+north_carolina <- read_tsv(file = '../data/north_carolina.tsv.gz')
 
 placebo_season(df=north_carolina)
 placebo_weekday(df=north_carolina)
@@ -156,5 +172,7 @@ fit_age(df=north_carolina, start_age=21, stop_age=30, fname='21-20')
 fit_age(df=north_carolina, start_age=31, stop_age=40, fname='31-40')
 fit_age(df=north_carolina, start_age=41, stop_age=50, fname='41-50')
 fit_age(df=north_carolina, start_age=51, stop_age=105, fname='51-105')
+
+fit_search_basis(df=north_carolina, fname='search_basis_pc_excl_official_info')
 
 

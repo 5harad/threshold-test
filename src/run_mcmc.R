@@ -16,7 +16,7 @@ run_mcmc <- function(stops, output_filename, iter = 5000, warmup = NULL, chains 
       group_by(police_department, race) %>%
       summarise(num_stops    = n(),
                 num_searches = sum(search_conducted),
-                num_hits     = sum(contraband_found),
+                num_hits     = sum(contraband_found, na.rm=T),
                 search_rate  = num_searches/num_stops,
                 hit_rate     = num_hits/num_searches) %>%
       filter(num_searches != 0) %>%
