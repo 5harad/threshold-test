@@ -37,25 +37,25 @@ Script Details
   - Downloads the original North Carolina traffic stop data as received from the state as a tar file
   - Libraries: urllib, tarfile
   - Requires: NA
-  - Output: saves `orig_data` folder in `data/`
+  - Output: saves `orig-data` folder in `data/`
 
 **to_tsv.py**
   - Converts the original txt files to tsv files
   - Libraries: sys, os, pandas, csv
-  - Requires: `orig_data/*.txt` files
-  - Output: .tsv files (in `orig_data/`)
+  - Requires: `orig-data/*.txt` files
+  - Output: .tsv files (in `orig-data/`)
 
 **data_processing.R**
   - Combines tsv files and saves two clean RData files in `data/`
   - Libraries: stringr, dplyr
-  - Requires: `orig_data/*.tsv` files
+  - Requires: `orig-data/*.tsv` files
   - Output 
     - `north_carolina_complete.RData` includes all stops in the original files 
-    - `north_carolina.RData` includes only stops from the top 100 local police departments used for the paper 
+    - `north_carolina.tsv` includes only stops from the top 100 local police departments used for the paper 
 
 **fit_main_result.R**
   - Runs the model in Stan and saves result (3 objects) in `output/`
-  - Requires: `data/north_carolina.RData`
+  - Requires: `data/north_carolina.tsv.gz`
   - Libraries: dplyr, rstan
   - Output
     - obs: the data frame containing aggregate statistics for each police department and race
@@ -78,14 +78,14 @@ Script Details
 **robustness_tests.R**
   - Implements the omitted variable bias tests (age, year, time, gender), and the placebo tests (season, weekday)
   - Libraries: dplyr, rstan
-  - Requires: `data/north_carolina.RData`
+  - Requires: `data/north_carolina.tsv.gz`
   - Output: saves results in `output/`
   - Run time: ~ 4-8 hours per test x 21 tests, chains sampled in parallel on 5 cores
 
 **threshold_noise.R**
   - Implements the threshold heterogenity test for 0% - 5% noise
   - Libraries: dplyr, rstan, boot
-  - Requires: `data/north_carolina.RData`
+  - Requires: `output/main_result.RData`
   - Output: saves results in `output/`
   - Run time: ~ 8-20 hours per test x 5 tests, chains sampled in parallel on 5 cores
 
