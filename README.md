@@ -13,12 +13,9 @@ Example usage: ./download.py
 
 Recommended order to produce main result
 -----------------------------------------
-1. download.py
-2. to_tsv.py
-3. data_processing.R
-4. fit_main_result.R
-5. generate_plots_main_result.R
-6. generate_numbers_main_result.R
+1. fit_main_result.R
+2. generate_plots_main_result.R
+3. generate_numbers_main_result.R
 
 
 Recommended order to produce model check results
